@@ -1,0 +1,101 @@
+name,age,salary,city
+  Alice  ,25,50000,NYC
+Bob,30,60000,  LA  
+Charlie,,55000,NYC
+Alice,25,50000,NYC
+  David,150,75000,
+eve,32,58000,new york
+ALICE,29,49000, la
+bob ,40,61000,NY 
+charlie ,35,500,L.A.
+ dave,-5,9999999,new-york
+Eve,22,52000,  n.y.c
+BOB,31,54000,La 
+charles,28,53000,New York
+AliCe ,,,ny
+ david ,26,50k,los angeles
+EVE ,33,62000,NYC
+chrlie,27,0,la 
+bbo,99,58000,NYC
+DAVID,twenty,60000,
+Alicia,25,NaN,NYC
+  Alice  ,45,45000,NYC
+B0b,33,61000,NYC
+Ch@rlie,25,52000,la
+Ali ce,,51000,la
+D@vid,18,,NY
+evee,250,none,
+Alicee,23,59000, 
+  alice,0,57000,newyork
+bOB,21,200000,LosAngeles
+charli,26,100,  NYC
+Aliiice,,,L.A
+,24,55555,nyc
+davidd,31,56500,newyork
+Evee,32,57500,Los Angeles
+ali_ce,27,58500,
+b ob,33,"61,000",ny 
+charle ,35,59500,LA
+alice ,29,60500,n.y.
+  Bob  ,26,61500, 
+DAVD,150,62500,nyc
+Eve ,28,63500,nyc
+Ali ce,,64500,l.a.
+Bbo,30,65500,NYC
+Chrlie ,27,66500,
+Dave,44,67500,New York City
+eve,21,,losangeles
+alice,19,68500,new york
+Bob,40,69500,nyc
+CHARLIE,36,70500,  la  
+ DAVE ,,71000,la
+ALICE,25,50000,NYC
+Bob,30,60000,  LA  
+Charlie,,55000,NYC
+Alice,25,50000,NYC
+  David,150,75000,
+eve,32,58000,new york
+ALICE,29,49000, la
+bob ,40,61000,NY 
+charlie ,35,500,L.A.
+ dave,-5,9999999,new-york
+Eve,22,52000,  n.y.c
+BOB,31,54000,La 
+charles,28,53000,New York
+AliCe ,,,ny
+ david ,26,50k,los angeles
+EVE ,33,62000,NYC
+chrlie,27,0,la 
+bbo,99,58000,NYC
+DAVID,twenty,60000,
+Alicia,25,NaN,NYC
+  Alice  ,45,45000,NYC
+B0b,33,61000,NYC
+Ch@rlie,25,52000,la
+Ali ce,,51000,la
+D@vid,18,,NY
+evee,250,none,
+Alicee,23,59000, 
+  alice,0,57000,newyork
+bOB,21,200000,LosAngeles
+charli,26,100,  NYC
+Aliiice,,,L.A
+,24,55555,nyc
+davidd,31,56500,newyork
+Evee,32,57500,Los Angeles
+ali_ce,27,58500,
+b ob,33,"61,000",ny 
+charle ,35,59500,LA
+alice ,29,60500,n.y.
+  Bob  ,26,61500, 
+DAVD,150,62500,nyc
+Eve ,28,63500,nyc
+Ali ce,,64500,l.a.
+Bbo,30,65500,NYC
+Chrlie ,27,66500,
+Dave,44,67500,New York City
+eve,21,,losangeles
+alice,19,68500,new york
+Bob,40,69500,nyc
+CHARLIE,36,70500,  la  
+ DAVE ,,71000,la
