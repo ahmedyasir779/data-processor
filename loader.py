@@ -85,7 +85,8 @@ class DataLoader:
             raise Exception(f"Error loading Excel: {e}")
         
 
-    
+    # -> dict mean that this function will return a dictionary 
+    # but even if you return anything else it will not cus an error
     def get_info(self) -> dict:
         if self.data is None:
             raise ValueError("No data loaded. Call load() first.")

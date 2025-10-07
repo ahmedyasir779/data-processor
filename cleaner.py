@@ -6,10 +6,7 @@ from typing import Dict, List, Optional
 
 class DataCleaner:
     def __init__(self, df: pd.DataFrame):
-        """
-        Args:
-            df: Input pandas DataFrame
-        """
+
         self.df = df.copy()  
         self.cleaning_report = {
             'original_rows': len(df),
@@ -125,59 +122,3 @@ class DataCleaner:
         return self.cleaning_report
 
 
-# ============================================
-# TESTING CODE
-
-if __name__ == "__main__":
-    test_data = pd.DataFrame({
-        'name': ['  Alice  ', 'Bob', 'Charlie', 'Alice', '  David'],
-        'age': [25, 30, None, 25, 150],
-        'salary': [50000, 60000, 55000, 50000, 75000],
-        'city': ['NYC', '  LA  ', 'NYC', 'NYC', None]
-    })
-    
-    print("=" * 60)
-    print("ORIGINAL DATA:")
-    print("=" * 60)
-    print(test_data)
-    print(f"\nShape: {test_data.shape}")
-    print(f"\nMissing values:")
-    print(test_data.isnull().sum())
-    
-    print("\n" + "=" * 60)
-    print("CLEANING DATA...")
-    print("=" * 60)
-    
-    cleaner = DataCleaner(test_data)
-    cleaned_df = (cleaner
-                  .handle_missing_values(strategy='drop')
-                  .remove_duplicates()
-                  .clean_strings()
-                  .remove_outliers('age', method='iqr')
-                  .get_cleaned_data())
-    
-    print("\n" + "=" * 60)
-    print("CLEANED DATA:")
-    print("=" * 60)
-    print(cleaned_df)
-    print(f"\nShape: {cleaned_df.shape}")
-    
-    # Show report
-    print("\n" + "=" * 60)
-    print("CLEANING REPORT:")
-    print("=" * 60)
-    report = cleaner.get_report()
-    print(f"Original rows: {report['original_rows']}")
-    print(f"Final rows: {report['final_rows']}")
-    print(f"Rows removed: {report['original_rows'] - report['final_rows']}")
-    
-    print("\nSteps applied:")
-    for i, step in enumerate(report['steps_applied'], 1):
-        print(f"\n  {i}. {step['step']}")
-        for key, value in step.items():
-            if key != 'step':
-                print(f"     - {key}: {value}")
-    
-    print("\n" + "=" * 60)
-    print("✓ TEST COMPLETE!")
-    print("=" * 60)

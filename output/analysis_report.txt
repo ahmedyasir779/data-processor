@@ -1,0 +1,29 @@
+============================================================
+DATA ANALYSIS REPORT
+============================================================
+
+📊 DATASET OVERVIEW:
+   Rows: 36
+   Columns: 4
+   Numeric columns: 0
+   Categorical columns: 4
+
+📋 CATEGORICAL COLUMNS:
+
+   name:
+      Unique values: 28
+      Most common: Alice
+
+   age:
+      Unique values: 22
+      Most common: 25
+
+   salary:
+      Unique values: 31
+      Most common: 50000
+
+   city:
+      Unique values: 19
+      Most common: NYC
+
+============================================================
