@@ -1,10 +1,7 @@
-"""
-Complete Data Pipeline: Load → Clean → Analyze
-"""
-
 from loader import DataLoader
 from cleaner import DataCleaner
 from analyzer import DataAnalyzer
+from dashboard import DashboardGenerator
 import pandas as pd
 import os
 
@@ -25,32 +22,24 @@ clean_data = (cleaner
               .clean_strings()
               .get_cleaned_data())
 
-cleaning_report = cleaner.get_report()
-print(f"Cleaned: {cleaning_report['original_rows']} → {cleaning_report['final_rows']} rows")
+print(f"Cleaned: {cleaner.get_report()['original_rows']} → {len(clean_data)} rows")
 
 # Step 3: Analyze Data
-print("\n📊 STEP 3: Analyzing data...")
 analyzer = DataAnalyzer(clean_data)
-
-# Generate report
 report = analyzer.generate_report()
 print(report)
 
-# Export report
+# Export text report
 analyzer.export_report('output/analysis_report.txt')
 
-# Create visualizations
-if len(analyzer.numeric_cols) > 0:
-    print("\n📈 Generating visualizations...")
-    
-    # Plot first numeric column
-    first_numeric = analyzer.numeric_cols[0]
-    analyzer.plot_distribution(first_numeric, save_path=f'output/{first_numeric}_distribution.png')
-    
-    # Correlation heatmap if we have multiple numeric columns
-    if len(analyzer.numeric_cols) >= 2:
-        analyzer.plot_correlation_heatmap(save_path='output/correlation_heatmap.png')
+# Step 4: Create Dashboard
+dashboard = DashboardGenerator(clean_data, title="Data Analysis Dashboard")
+
+# Create overview dashboard
+dashboard.create_overview_dashboard(save_path='output/final_dashboard.png')
+
+# Create comparison plots
+dashboard.create_interactive_dashboard("final_dashboard")
 
 print("\n" + "=" * 60)
-print("Check the 'output/' folder for saved files")
-print("=" * 60)
+print("✓ PIPELINE COMPLETE!")
