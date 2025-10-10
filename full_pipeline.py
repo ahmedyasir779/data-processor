@@ -39,7 +39,7 @@ dashboard = DashboardGenerator(clean_data, title="Data Analysis Dashboard")
 dashboard.create_overview_dashboard(save_path='output/final_dashboard.png')
 
 # Create comparison plots
-dashboard.create_interactive_dashboard("final_dashboard")
+# dashboard.create_interactive_dashboard("final_dashboard")
 
 print("\n" + "=" * 60)
 print("✓ PIPELINE COMPLETE!")

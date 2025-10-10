@@ -286,10 +286,10 @@ class DashboardGenerator:
         
         plt.show()
 
-    def create_interactive_dashboard(self, dashboard_title: str = 'interactive_dashboard'):
-        fig = px.scatter(self.df, x='age', y='salary', color='city')
+    # def create_interactive_dashboard(self, dashboard_title: str = 'interactive_dashboard'):
+    #     fig = px.scatter(self.df, x='age', y='salary', color='city')
         
-        fig.write_html(f'output/{dashboard_title}.html')
+    #     fig.write_html(f'output/{dashboard_title}.html')
 
 # ============================================
 # TESTING CODE
