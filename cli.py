@@ -5,6 +5,7 @@ from pathlib import Path
 from colorama import Fore, Style, init
 from tqdm import tqdm
 import time
+from datetime import datetime
 
 # Initialize colorama for cross-platform colored output
 init()
@@ -14,7 +15,9 @@ from loader import DataLoader
 from cleaner import DataCleaner
 from analyzer import DataAnalyzer
 from dashboard import DashboardGenerator
+from logger_config import get_logger
 
+logger = get_logger(__name__)
 
 class Colors:
     SUCCESS = Fore.GREEN
@@ -49,14 +52,38 @@ def print_header(title):
 def load_data(file_path):
     try:
         print_info(f"Loading data from {file_path}...")
+        logger.info(f"Attempting to load file: {file_path}")
+
         loader = DataLoader(file_path)
         data = loader.load()
+
         print_success(f"Loaded {len(data)} rows, {len(data.columns)} columns")
+        logger.info(f"Successfully loaded {len(data)} rows")
+
         return data
     except FileNotFoundError:
+        logger.error(f"File not found: {file_path}")
+
         print_error(f"File not found: {file_path}")
+        print_info(f"Tip: Check the file path or use an absolute path")
+
+        return None
+    except PermissionError as e:
+        logger.error(f"Permission denied: {file_path}")
+        
+        print_error(f"Permission denied: Cannot read {file_path}")
+        print_info(f"Tip: Check file permissions")
+        
+        return None
+    except ValueError as e:
+        logger.error(f"Invalid file format: {e}")
+        
+        print_error(f"Invalid file format: {e}")
+        print_info(f"Tip: Supported formats are CSV, JSON, and Excel")
+        
         return None
     except Exception as e:
+        logger.error(f"Unexpected error loading file: {e}", exc_info=True)
         print_error(f"Error loading file: {e}")
         return None
 
@@ -128,38 +155,62 @@ def create_dashboard(data, output_dir, title="Data Analysis Dashboard"):
 
 def run_pipeline(args):
     print_header("DATA PROCESSING PIPELINE")
-    
+
+    logger.info("="*60)
+    logger.info("Starting pipeline execution")
+    logger.info(f"Input file: {args.file}")
+    logger.info(f"Options: clean={args.clean}, analyze={args.analyze}, dashboard={args.dashboard}")
+
     start_time = time.time()
     
-    # Step 1: Load data
-    data = load_data(args.file)
-    if data is None:
+    try:
+        # Step 1: Load data
+        data = load_data(args.file)
+        if data is None:
+            logger.error("Pipeline failed at loading stage")
+            sys.exit(1)
+        
+        # Step 2: Clean data (if requested)
+        if args.clean:
+            data = clean_data(data, strategy=args.clean_strategy)
+        else:
+            print_warning("Skipping data cleaning (use --clean to enable)")
+            logger.info("Data cleaning skipped")
+        
+        # Step 3: Analyze data (if requested)
+        if args.analyze:
+            analyze_data(data, args.output)
+        else:
+            print_warning("Skipping analysis (use --analyze to enable)")
+            logger.info("Data analysis skipped")
+
+        # Step 4: Create dashboard (if requested)
+        if args.dashboard:
+            title = args.title or f"Analysis of {Path(args.file).stem}"
+            create_dashboard(data, args.output, title=title)
+        else:
+            print_warning("Skipping dashboard (use --dashboard to enable)")
+            logger.info("Dashboard creation skipped")
+
+        # Summary
+        elapsed = time.time() - start_time
+        print_header("PIPELINE COMPLETE")
+        print_success(f"Total time: {elapsed:.2f} seconds")
+        print_info(f"Output saved to: {args.output}/")
+
+        logger.info(f"Pipeline completed in {elapsed:.2f} seconds")
+        logger.info("="*60)
+
+    except KeyboardInterrupt:
+        logger.warning("Pipeline interrupted by user")
+        print_warning("\n\nPipeline interrupted by user")
+
+        sys.exit(0)
+    except Exception as e:
+        logger.error(f"Pipeline failed with unexpected error: {e}", exc_info=True)
+        print_error(f"Pipeline failed: {e}")
+        print_info(f"Check logs/pipeline_{datetime.now().strftime('%Y%m%d')}.log for details")
         sys.exit(1)
-    
-    # Step 2: Clean data (if requested)
-    if args.clean:
-        data = clean_data(data, strategy=args.clean_strategy)
-    else:
-        print_warning("Skipping data cleaning (use --clean to enable)")
-    
-    # Step 3: Analyze data (if requested)
-    if args.analyze:
-        analyze_data(data, args.output)
-    else:
-        print_warning("Skipping analysis (use --analyze to enable)")
-    
-    # Step 4: Create dashboard (if requested)
-    if args.dashboard:
-        title = args.title or f"Analysis of {Path(args.file).stem}"
-        create_dashboard(data, args.output, title=title)
-    else:
-        print_warning("Skipping dashboard (use --dashboard to enable)")
-    
-    # Summary
-    elapsed = time.time() - start_time
-    print_header("PIPELINE COMPLETE")
-    print_success(f"Total time: {elapsed:.2f} seconds")
-    print_info(f"Output saved to: {args.output}/")
 
 
 def interactive_mode():
@@ -197,18 +248,18 @@ def main():
         description='Data Processing Pipeline - Load, Clean, Analyze, Visualize',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
-Examples:
-  # Load and clean data
-  python cli.py --file data.csv --clean
-  
-  # Full pipeline
-  python cli.py --file data.csv --clean --analyze --dashboard
-  
-  # Custom output directory
-  python cli.py --file data.csv --clean --analyze --output results/
-  
-  # Interactive mode
-  python cli.py --interactive
+            Examples:
+            # Load and clean data
+            python cli.py --file data.csv --clean
+            
+            # Full pipeline
+            python cli.py --file data.csv --clean --analyze --dashboard
+            
+            # Custom output directory
+            python cli.py --file data.csv --clean --analyze --output results/
+            
+            # Interactive mode
+            python cli.py --interactive
         """
     )
     
@@ -273,6 +324,7 @@ Examples:
         action='store_true',
         help='Run complete pipeline (clean + analyze + dashboard)'
     )
+    
     
     # Parse arguments
     args = parser.parse_args()

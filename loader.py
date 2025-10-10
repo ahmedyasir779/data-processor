@@ -2,7 +2,7 @@ import pandas as pd
 import json
 import os
 from pathlib import Path
-
+from logger_config import get_logger
 
 class DataLoader:
     """Load data from various file formats"""
@@ -11,52 +11,55 @@ class DataLoader:
         self.file_path = file_path
         self.data = None
         self.file_type = self._get_file_type()
-    
+        self.logger = get_logger(__name__) 
 
 
     def _get_file_type(self) -> str:
-        """
-        Determine file type from extension
-        """
         return Path(self.file_path).suffix.lower().replace('.', '')
     
 
     
     def load(self) -> pd.DataFrame:
-        """
-        Load the file based on its type
-        """
-        # Check if file exists
         if not os.path.exists(self.file_path):
+            self.logger.error(f"File not found: {self.file_path}")
             raise FileNotFoundError(f"File not found: {self.file_path}")
         
-        print(f"Loading {self.file_type.upper()} file: {self.file_path}")
+        self.logger.info(f"Loading {self.file_type.upper()} file: {self.file_path}")
         
-        # Load based on file type
-        if self.file_type == 'csv':
-            self.data = self._load_csv()
-        elif self.file_type == 'json':
-            self.data = self._load_json()
-        elif self.file_type == 'xlsx':
-            self.data = self._load_excel()
-        else:
-            raise ValueError(f"Unsupported file type: {self.file_type}")
-        
-        print(f"Loaded {len(self.data)} rows and {len(self.data.columns)} columns")
-        return self.data
+        try:
+            # Load based on file type
+            if self.file_type == 'csv':
+                self.data = self._load_csv()
+            elif self.file_type == 'json':
+                self.data = self._load_json()
+            elif self.file_type == 'xlsx':
+                self.data = self._load_excel()
+            else:
+                self.logger.error(f"Unsupported file type: {self.file_type}")
+                raise ValueError(f"Unsupported file type: {self.file_type}")
+            
+            self.logger.info(f"Successfully loaded {len(self.data)} rows and {len(self.data.columns)} columns")
+            return self.data
+            
+        except Exception as e:
+            self.logger.error(f"Error loading file: {e}", exc_info=True)
+            raise
     
 
 
     def _load_csv(self) -> pd.DataFrame:
         try:
+            self.logger.debug(f"Reading CSV file: {self.file_path}")
             return pd.read_csv(self.file_path)
         except Exception as e:
+            self.logger.error(f"Error loading CSV: {e}")
             raise Exception(f"Error loading CSV: {e}")
         
 
     
     def _load_json(self) -> pd.DataFrame:
         try:
+            self.logger.debug(f"Reading JSON file: {self.file_path}")
             with open(self.file_path, 'r') as f:
                 data = json.load(f)
             
@@ -73,6 +76,7 @@ class DataLoader:
                 return pd.DataFrame([data])
             
         except Exception as e:
+            self.logger.error(f"Error loading JSON: {e}")
             raise Exception(f"Error loading JSON: {e}")
         
 
@@ -80,8 +84,10 @@ class DataLoader:
     
     def _load_excel(self) -> pd.DataFrame:
         try:
+            self.logger.debug(f"Reading Excel file: {self.file_path}")
             return pd.read_excel(self.file_path)
         except Exception as e:
+            self.logger.error(f"Error loading Excel: {e}")
             raise Exception(f"Error loading Excel: {e}")
         
 
