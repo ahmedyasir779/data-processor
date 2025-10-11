@@ -6,18 +6,18 @@ A professional, production-ready data processing toolkit for loading, cleaning, 
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![Tests](https://img.shields.io/badge/tests-passing-brightgreen)
 
-## ✨ Features
+## Features
 
-- 🔄 **Multi-format Data Loading** - Load CSV, JSON, and Excel files
-- 🧹 **Intelligent Data Cleaning** - Handle missing values, duplicates, outliers
-- 📊 **Statistical Analysis** - Generate comprehensive statistics and insights
-- 📈 **Beautiful Visualizations** - Create professional dashboards automatically
-- 🖥️ **Command-Line Interface** - Easy-to-use CLI with colored output
-- 📝 **Comprehensive Logging** - Track all operations with detailed logs
-- ✅ **Fully Tested** - Unit and integration tests included
+- **Multi-format Data Loading** - Load CSV, JSON, and Excel files
+- **Intelligent Data Cleaning** - Handle missing values, duplicates, outliers
+- **Statistical Analysis** - Generate comprehensive statistics and insights
+- **Beautiful Visualizations** - Create professional dashboards automatically
+- **Command-Line Interface** - Easy-to-use CLI with colored output
+- **Comprehensive Logging** - Track all operations with detailed logs
+- **Fully Tested** - Unit and integration tests included
 
 ## Features in Detail
-Data Loading
+## Data Loading
 
 ✅ CSV files (.csv)
 ✅ JSON files (.json)
@@ -25,7 +25,7 @@ Data Loading
 ✅ Automatic format detection
 ✅ Error handling for corrupted files
 
-Data Cleaning
+## Data Cleaning
 
 ✅ Handle missing values (drop, fill, forward-fill)
 ✅ Remove duplicates
@@ -34,7 +34,7 @@ Data Cleaning
 ✅ Data type conversion
 ✅ Generates cleaning report
 
-Statistical Analysis
+## Statistical Analysis
 
 ✅ Summary statistics (mean, median, std, etc.)
 ✅ Correlation analysis
@@ -42,7 +42,7 @@ Statistical Analysis
 ✅ Distribution analysis
 ✅ Exportable reports
 
-Visualizations
+## Visualizations
 
 ✅ Overview dashboard (2x2 grid)
 ✅ Distribution plots (histograms)
@@ -81,8 +81,8 @@ python -m venv venv
 pip install -r requirements.txt
 ```
 
-Author
-Ahmed Yasir
+## Author
+## Ahmed Yasir
 
-GitHub: @Yahmedyasir779 
-LinkedIn: www.linkedin.com/in/ahmed-yasir-907561206
+## GitHub: @Yahmedyasir779 
+## LinkedIn: www.linkedin.com/in/ahmed-yasir-907561206
