@@ -82,7 +82,7 @@ pip install -r requirements.txt
 ```
 
 ## Author
-## Ahmed Yasir
+**Ahmed Yasir**
 
-## GitHub: @Yahmedyasir779 
-## LinkedIn: www.linkedin.com/in/ahmed-yasir-907561206
+**GitHub: @Yahmedyasir779**
+**LinkedIn: www.linkedin.com/in/ahmed-yasir-907561206**
