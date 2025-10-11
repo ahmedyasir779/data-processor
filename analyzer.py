@@ -82,7 +82,7 @@ class DataAnalyzer:
         
         if save_path:
             plt.savefig(save_path, dpi=300, bbox_inches='tight')
-            print(f"✓ Plot saved to {save_path}")
+            print(f"Plot saved to {save_path}")
         
         plt.show()
     
@@ -112,7 +112,7 @@ class DataAnalyzer:
         
         if save_path:
             plt.savefig(save_path, dpi=300, bbox_inches='tight')
-            print(f"✓ Heatmap saved to {save_path}")
+            print(f"Heatmap saved to {save_path}")
         
         plt.show()
     
@@ -137,7 +137,7 @@ class DataAnalyzer:
         
         if save_path:
             plt.savefig(save_path, dpi=300, bbox_inches='tight')
-            print(f"✓ Plot saved to {save_path}")
+            print(f"Plot saved to {save_path}")
         
         plt.show()
     
@@ -149,7 +149,7 @@ class DataAnalyzer:
         report.append("=" * 60)
         
         # Basic info
-        report.append(f"\n📊 DATASET OVERVIEW:")
+        report.append(f"\nDATASET OVERVIEW:")
         report.append(f"   Rows: {len(self.df)}")
         report.append(f"   Columns: {len(self.df.columns)}")
         report.append(f"   Numeric columns: {len(self.numeric_cols)}")
@@ -157,7 +157,7 @@ class DataAnalyzer:
         
         # Summary statistics
         if self.numeric_cols:
-            report.append(f"\n📈 SUMMARY STATISTICS:")
+            report.append(f"\nSUMMARY STATISTICS:")
             summary = self.get_summary_statistics()
             
             for col, stats in summary.items():
@@ -169,7 +169,7 @@ class DataAnalyzer:
         
         # Categorical summaries
         if self.categorical_cols:
-            report.append(f"\n📋 CATEGORICAL COLUMNS:")
+            report.append(f"\nCATEGORICAL COLUMNS:")
             for col in self.categorical_cols:
                 unique_count = self.df[col].nunique()
                 most_common = self.df[col].mode()[0] if len(self.df[col].mode()) > 0 else 'N/A'
@@ -179,7 +179,7 @@ class DataAnalyzer:
         
         # Correlations (if applicable)
         if len(self.numeric_cols) >= 2:
-            report.append(f"\n🔗 CORRELATIONS:")
+            report.append(f"\nCORRELATIONS:")
             corr_matrix = self.get_correlation_matrix()
             
             # Find strongest correlations
@@ -194,7 +194,7 @@ class DataAnalyzer:
             # Sort by absolute correlation value
             corr_pairs.sort(key=lambda x: abs(x[2]), reverse=True)
             
-            report.append("\n   Strongest correlations:")
+            report.append("\n Strongest correlations:")
             for col1, col2, corr_val in corr_pairs[:3]:  # Top 3
                 report.append(f"      {col1} ↔ {col2}: {corr_val:.2f}")
         
@@ -214,4 +214,4 @@ class DataAnalyzer:
         with open(filepath, 'w') as f:
             f.write(report)
         
-        print(f"✓ Report exported to {filepath}")
+        print(f"Report exported to {filepath}")

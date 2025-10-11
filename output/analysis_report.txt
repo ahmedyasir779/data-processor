@@ -3,27 +3,38 @@ DATA ANALYSIS REPORT
 ============================================================
 
 📊 DATASET OVERVIEW:
-   Rows: 36
+   Rows: 105
    Columns: 4
-   Numeric columns: 0
-   Categorical columns: 4
+   Numeric columns: 2
+   Categorical columns: 2
+
+📈 SUMMARY STATISTICS:
+
+   age:
+      Mean: 40.97
+      Median: 42.00
+      Std Dev: 11.84
+      Range: [22.00, 60.00]
+
+   salary:
+      Mean: 77345.38
+      Median: 75152.00
+      Std Dev: 21188.15
+      Range: [40891.00, 119466.00]
 
 📋 CATEGORICAL COLUMNS:
 
    name:
-      Unique values: 28
-      Most common: Alice
-
-   age:
-      Unique values: 22
-      Most common: 25
-
-   salary:
-      Unique values: 31
-      Most common: 50000
+      Unique values: 25
+      Most common: Daniel
 
    city:
-      Unique values: 19
-      Most common: NYC
+      Unique values: 15
+      Most common: Dallas
+
+🔗 CORRELATIONS:
+
+   Strongest correlations:
+      age ↔ salary: 0.06
 
 ============================================================
