@@ -147,6 +147,10 @@ class DataCleaner:
         return self.df
     
     def get_report(self) -> Dict:
+        
+        if 'final_rows' not in self.cleaning_report:
+            self.cleaning_report['final_rows'] = len(self.df)
+            self.cleaning_report['final_columns'] = len(self.df.columns)
 
         return self.cleaning_report
 
